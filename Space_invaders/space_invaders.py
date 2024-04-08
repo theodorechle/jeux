@@ -183,7 +183,7 @@ tailles = {
 coords_base = [30, 30]
 coords = coords_base
 coords_missile = coords_missile_ennemis = []
-coords_mystery_ship = [0, 10, tailles["mystery_ship"][0], tailles["mystery_ship"][1]]
+coords_mystery_ship = [None, 10, tailles["mystery_ship"][0], tailles["mystery_ship"][1]]
 coords_perso = [159, 200]
 dist = (40, 22)
 score = 0
@@ -202,7 +202,7 @@ t_ennemis = monotonic()-0.7
 t_missile = monotonic()-0.1
 t_perso = monotonic()-0.1
 t_tirer = monotonic()-0.7
-t_mystery_ship = monotonic()+int(random()*100)
+t_mystery_ship = monotonic()+int(random()*50)
 
 continuer = True
 
@@ -244,7 +244,7 @@ while continuer:
             fill_rect(i[0], i[1]+5, i[2], i[3], (0, 0, 0))
             dessiner(missiles[1], i)
             coords_missile[indice][1] -= 5
-            if collision(i, coords_mystery_ship):
+            if coords_mystery_ship[0] != None and collision(i, coords_mystery_ship):
                 combo += 1
                 score += 300 if (combo-23) % 15 == 0 else choice([50, 100, 150, 200])
                 coords_suppr.append(i)
@@ -313,16 +313,16 @@ while continuer:
             coords_missile.append([coords_perso[0]+5*taille_case, coords_perso[1]-6*taille_case, tailles["missiles1"][0]*taille_case, tailles["missiles1"][1]*taille_case])
             t_tirer = monotonic()
 
-    # if t_mystery_ship <= monotonic():
-    #     if coords_mystery_ship[0] is None:
-    #         sens_mystery_ship = choice([-1, 1])
-    #         coords_mystery_ship[0] = 0 if sens_mystery_ship == 1 else 320-tailles["mystery_ship"][0]
-    #         dessiner(mystery_ship, coords_mystery_ship)
-    #     else:
-    #         fill_rect(coords_mystery_ship[0], coords_mystery_ship[1],tailles["mystery_ship"][0]*taille_case, tailles["mystery_ship"][1]*taille_case)
-    #         coords_mystery_ship[0] += 5*sens_mystery_ship
-    #         if 0 < coords_mystery_ship[0] < 320-tailles["mystery_ship"][0]:
-    #             dessiner(mystery_ship, coords_mystery_ship)
-    #         else:
-    #             coords_mystery_ship[0] = None
-    #             t_mystery_ship += int(random()*100)
+    if t_mystery_ship <= monotonic():
+        if coords_mystery_ship[0] is None:
+            sens_mystery_ship = choice([-1, 1])
+            coords_mystery_ship[0] = 0 if sens_mystery_ship == 1 else 320-tailles["mystery_ship"][0]
+            dessiner(mystery_ship, coords_mystery_ship)
+        else:
+            fill_rect(coords_mystery_ship[0], coords_mystery_ship[1],tailles["mystery_ship"][0]*taille_case, tailles["mystery_ship"][1]*taille_case, "#000000")
+            coords_mystery_ship[0] += sens_mystery_ship
+            if 0 < coords_mystery_ship[0] < 320-tailles["mystery_ship"][0]:
+                dessiner(mystery_ship, coords_mystery_ship)
+            else:
+                coords_mystery_ship[0] = None
+                t_mystery_ship += int(random()*50)
