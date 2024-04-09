@@ -8,15 +8,6 @@ WHITE = "#ffffff"
 GREEN = "#32ff32"
 
 def dessiner(image, coord):
-    for i in range(len(image)):
-        for j in image[i]:
-            if coord[1]+i*taille_case >= 180:
-                couleur = (50, 255, 50)
-            else:
-                couleur = (255, 255, 255)
-            fill_rect(coord[0]+j*taille_case, coord[1]+i*taille_case, taille_case, taille_case, couleur)
-
-def dessiner_test(image, coord):
     x, y = 0, 0
     for nb in image:
         if nb == 0:
@@ -79,39 +70,19 @@ aliens = [
     ]
 ]
 
-tailles = {
-    "mystery_ship": (16, 7),
-    "perso0": (11, 9),
-    "perso1": (14, 8),
-    "missiles0": (3, 7),
-    "missiles1": (1, 3),
-    "explosion": (13, 8),
-    "bouclier": (20, 15),
-    "monstre1": (12, 8),
-    "monstre2": (11, 8),
-    "monstre3": (9, 8)
-}
-
-
-print("""
-Attention !
-Il faut gérer les boucliers de manière à ce que les missiles puissent passer après les avoir détruits.
-Peut-être faudra-t-il également réécrire le code en anglais.
-""")
-
 fill_rect(0, 0, 320, 222, (0, 0, 0))
 
 while 1:
-    dessiner_test(mystery_ship, (5, 50))
-    dessiner_test(perso[0], (50, 50))
-    dessiner_test(perso[1], (100, 50))
-    dessiner_test(bullets[0], (150, 50))
-    dessiner_test(bullets[1], (200, 50))
-    dessiner_test(explosion, (250, 50))
-    dessiner_test(aliens[0][0], (5, 150))
-    dessiner_test(aliens[1][0], (50, 150))
-    dessiner_test(aliens[0][1], (100, 150))
-    dessiner_test(aliens[1][1], (150, 150))
-    dessiner_test(aliens[0][2], (200, 150))
-    dessiner_test(aliens[1][2], (250, 150))
-    dessiner_test(shield, (50, 180))
+    dessiner(mystery_ship, (5, 50))
+    dessiner(perso[0], (50, 50))
+    dessiner(perso[1], (100, 50))
+    dessiner(bullets[0], (150, 50))
+    dessiner(bullets[1], (200, 50))
+    dessiner(explosion, (250, 50))
+    dessiner(aliens[0][0], (5, 150))
+    dessiner(aliens[1][0], (50, 150))
+    dessiner(aliens[0][1], (100, 150))
+    dessiner(aliens[1][1], (150, 150))
+    dessiner(aliens[0][2], (200, 150))
+    dessiner(aliens[1][2], (250, 150))
+    dessiner(shield, (50, 180))
